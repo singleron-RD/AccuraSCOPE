@@ -24,6 +24,8 @@ split_accura \
   --library_type rna
 ```
 
+[`split_accura`](https://github.com/singleron-RD/sccore/blob/main/sccore/cli/split_accura.py) is a script included in the `sccore` CLI
+
 **Parameters:**
 - `--fq1`: Input read1 FASTQ file (R1). Multiple files should be comma-separated
 - `--fq2`: Input read2 FASTQ file (R2). Multiple files should be comma-separated  
