@@ -21,7 +21,8 @@ split_accura \
   --fq1 ./fastqs/X_001_R1.fastq.gz,./fastqs/X_002_R1.fastq.gz \
   --fq2 ./fastqs/X_001_R2.fastq.gz,./fastqs/X_002_R2.fastq.gz \
   --well_name well_name.tsv \
-  --library_type rna
+  --library_type rna \
+  --chemistry AccuraSCOPE_RNA
 ```
 
 [`split_accura`](https://github.com/singleron-RD/sccore/blob/main/sccore/cli/split_accura.py) is a script included in the `sccore` CLI
@@ -30,6 +31,7 @@ split_accura \
 - `--fq1`: Input read1 FASTQ file (R1). Multiple files should be comma-separated
 - `--fq2`: Input read2 FASTQ file (R2). Multiple files should be comma-separated  
 - `--well_name`: Well name file (tab-delimited, two columns: well number and user-defined name, e.g., `1\tcell_1`), no header
+- `--chemistry`: `AccuraSCOPE_RNA` or `ARC_RNA`. Default is `AccuraSCOPE_RNA`. Note: The whitelists used by these two chemistries differ slightly in their barcode sequences. Please consult your sales representative for the specific chemistry details to ensure correct selection.
 
 **96 well number(8 * 12)**
   
@@ -65,11 +67,12 @@ custom_config_base: null
 input: 'rna/rna_samplesheet.csv'
 fasta: genome.fasta
 gtf: genome.gtf
+trimmer: fastp
+extra_fastp_args: '--trim_poly_x'
 outdir: outs
 skip_stringtie: true
 skip_bigwig: true
 skip_fastqc: true
-skip_trimming: true
 ```
 
 ## DNA Analysis
@@ -95,7 +98,7 @@ nextflow run nf-core/sarek \
 custom_config_base: null
 input: 'dna/dna_samplesheet.csv'
 outdir: './outs'
-tools: cnvkit,snpeff,strelka
+tools: cnvkit,vep,strelka
 genome: 'GATK.GRCh38'
 aligner: bwa-mem2
 igenomes_base: /SGRNJ06/randd/public/genome/igenome/references
